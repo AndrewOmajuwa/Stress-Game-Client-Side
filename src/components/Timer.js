@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setTime, setTime2 } from "../actions/timer";
+import Alert from './Sound'
 
 class Timer extends Component {
   state = {
@@ -10,8 +11,8 @@ class Timer extends Component {
   };
 
   handleChange = () => {
-    console.log(this.state)
-    this.props.setTime({timerOn: true});
+    console.log(this.state);
+    this.props.setTime({ timerOn: true });
   };
 
   startTimer = () => {
@@ -32,23 +33,23 @@ class Timer extends Component {
         alert("Countdown ended");
       }
     }, 10);
-    this.handleChange()
-    console.log(this.state)
+    this.handleChange();
+    console.log(this.state);
   };
 
-    stopTimer = () => {
-      clearInterval(this.timer);
-      this.setState({ timerOn: false });
-      this.props.setTime2({timerOn: false});
-    };
-    resetTimer = () => {
-      if (this.state.timerOn === false) {
-        this.setState({
-          timerTime: this.state.timerStart
-        });
-      }
-      console.log(this.state)
-    };
+  stopTimer = () => {
+    clearInterval(this.timer);
+    this.setState({ timerOn: false });
+    this.props.setTime2({ timerOn: false });
+  };
+  resetTimer = () => {
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart
+      });
+    }
+    console.log(this.state);
+  };
 
   adjustTimer = input => {
     const { timerTime, timerOn } = this.state;
@@ -70,11 +71,19 @@ class Timer extends Component {
     }
   };
 
+
   render() {
     const { timerTime, timerStart, timerOn } = this.state;
     let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
     let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
     let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
+
+    const alert = () => {
+      if(this.props.timer.timerOn === true)
+      return (
+       <Alert />
+      )
+     }
 
     return (
       <div>
@@ -88,7 +97,10 @@ class Timer extends Component {
             &#8679;
           </button>
           <div className="Countdown-time">
-           <h1> {hours} : {minutes} : {seconds}</h1>
+            <h1>
+              {" "}
+              {hours} : {minutes} : {seconds}
+            </h1>
           </div>
           <button onClick={() => this.adjustTimer("decHours")}>&#8681;</button>
           <button onClick={() => this.adjustTimer("decMinutes")}>
@@ -96,7 +108,8 @@ class Timer extends Component {
           </button>
           <button onClick={() => this.adjustTimer("decSeconds")}>
             &#8681;
-          </button><br/>
+          </button>
+          <br />
           {timerOn === false &&
             (timerStart === 0 || timerTime === timerStart) && (
               <button onClick={this.startTimer}>Start</button>
@@ -115,6 +128,9 @@ class Timer extends Component {
               <button onClick={this.resetTimer}>Reset</button>
             )}
         </div>
+        <div>
+          {alert()}
+        </div>
       </div>
     );
   }
@@ -127,9 +143,7 @@ const mapStateToProps = reduxState => {
 };
 
 //use connect to call mapStateToProps after an action has been dispatched and handled by the reducers
-export default (
-  connect(
-    mapStateToProps,
-    { setTime, setTime2 }
-  )(Timer)
-);
+export default connect(
+  mapStateToProps,
+  { setTime, setTime2 }
+)(Timer);

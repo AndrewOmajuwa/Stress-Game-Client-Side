@@ -55,8 +55,6 @@ class Answer extends Component {
 
     const answerCheck = this.state.answer && check 
 
-    console.log("ANSWER", this.state.answer)
-
     return (
       <form className="white" onSubmit={this.onSubmit}>
         <h3>Your Answer</h3>

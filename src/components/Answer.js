@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import './Answer.css'
 import { setAnswer } from "../actions/answer";
 import { updateScore } from "../actions/score";
 import { randomLetter } from "../actions/letter";
 import { connect } from "react-redux";
+
 
 class Answer extends Component {
   state = {
@@ -37,32 +39,30 @@ class Answer extends Component {
       answer: "",
       answered: true
     });
-  
-    
   };
 
   render() {
     if (!this.props.countries) {
       return "Loading";
     }
-    if(this.state.answered) {
-
+    if (this.state.answered) {
     }
 
     const correctAnswer = this.props.countries.includes(this.state.answer);
 
-    const check = correctAnswer ? 'Correct Answer' : 'Incorrect Answer'
+    const check = correctAnswer ? "Correct Answer" : "Incorrect Answer";
 
-    const answerCheck = this.state.answer && check 
+    const answerCheck = this.state.answer && check;
 
     return (
-      <form className="white" onSubmit={this.onSubmit}>
-        <h3>Your Answer</h3>
+      <div class="container">
+      <form class="col s12 m4 l2"  onSubmit={this.onSubmit}>
+        <h3 class="teal-text text-darken-2">Your Answer</h3>
         <div>
-          <label name="answer">
+          <label for="Answer" name="answer">
             Answer:
             <input
-              type="answer"
+            id="answer" type="text" 
               value={this.state.answer}
               name="answer"
               onChange={this.onChange}
@@ -70,11 +70,19 @@ class Answer extends Component {
           </label>
         </div>
         {this.state.answer && check}
-        
+
         <div>
-          <input type="submit" value="Submit" />
+          <button
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
         </div>
       </form>
+      </div>
     );
   }
 }

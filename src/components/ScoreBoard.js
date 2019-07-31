@@ -6,9 +6,9 @@ class ScoreBoard extends Component {
 
   render() {
     return (
-      <nav className="nav-wrapper grey darke n-3">
-        <div>
-          <ul>
+      <nav className="nav-wrapper teal darke n-3">
+        <div >
+          <ul >
             <li className="right">
               <strong>Target Score: 15 </strong>
             </li>
@@ -18,6 +18,7 @@ class ScoreBoard extends Component {
           </ul>
         </div>
       </nav>
+      
     );
   }
 }

@@ -1,17 +1,38 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-//create ScoreBoard component
-const ScoreBoard = () => {
-  return (
-    <nav className="nav-wrapper grey darke n-3">
-      <div>
-        <ul >
-            <li ><strong>Required Score: 10 </strong></li>
-            <li><strong >Actual Score: 10 </strong></li>
-        </ul>
-      </div>
-    </nav>
+class ScoreBoard extends Component {
+
+
+  render() {
+    return (
+      <nav className="nav-wrapper grey darke n-3">
+        <div>
+          <ul>
+            <li className="right">
+              <strong>Target Score: 15 </strong>
+            </li>
+            <li>
+              <strong>Actual Score: {this.props.score} </strong>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+}
+
+
+const mapStateToProps = reduxState => {
+    return {
+      score: reduxState.score
+    };
+  };
+  
+  //use connect to call mapStateToProps after an action has been dispatched and handled by the reducers
+  export default (
+    connect(
+      mapStateToProps,
+    )(ScoreBoard)
   );
-};
-
-export default ScoreBoard;
+  

@@ -4,8 +4,9 @@ import store from './store'
 import {Provider} from 'react-redux'
 import ScoreBoard from './components/ScoreBoard'
 import Letter from './components/Letter'
-import StartButton from './components/StartButton'
+import Timer from './components/Timer'
 import Answer from './components/Answer'
+import Countries from './components/Countries'
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       <div className="App">
       <ScoreBoard />
       <Letter />
-      {/* <StartButton /> */}
+      <Timer />
       <Answer />
+      <Countries />
     </div>
     </Provider>
   );

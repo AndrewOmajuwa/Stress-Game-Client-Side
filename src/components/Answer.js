@@ -1,58 +1,62 @@
 import React, { Component } from "react";
+import { setAnswer } from "../actions/answer";
+import { updateScore } from "../actions/score";
+import { randomLetter } from "../actions/letter";
+import { connect } from "react-redux";
 
-const letters = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z"
-  ];
-
-export default class Answer extends Component {
+class Answer extends Component {
   state = {
-    answer: ""
+    answer: "",
+    answered: false
   };
-
-   randomLetter = () => {
-    return letters[Math.floor(Math.random() * letters.length)].toUpperCase();
-  }
 
   onChange = event => {
+    const { name, value } = event.target;
     this.setState({
-      [event.target.name]: event.target.value
+      [name]: value.charAt(0).toUpperCase() + value.slice(1)
     });
   };
-  
+
+  answerCheck = () => {
+    const correctAnswer = this.props.countries.includes(this.state.answer);
+    if (correctAnswer) {
+      this.props.updateScore();
+    }
+  };
+
+  handleChange = () => {
+    this.props.randomLetter();
+  };
+
   onSubmit = event => {
-      console.log('the state is', this.state)
-    // const { answer } = this.state;
-    // this.props.checkAnswer(answer);
-    this.randomLetter()
     event.preventDefault();
+    this.props.setAnswer(this.state.answer);
+    this.answerCheck();
+    this.handleChange();
+    this.setState({
+      answer: "",
+      answered: true
+    });
+  
+    
   };
 
   render() {
+    if (!this.props.countries) {
+      return "Loading";
+    }
+    if(this.state.answered) {
+
+    }
+
+    const correctAnswer = this.props.countries.includes(this.state.answer);
+
+    const check = correctAnswer ? 'Correct Answer' : 'Incorrect Answer'
+
+    const answerCheck = this.state.answer && check 
+
+    console.log("ANSWER", this.state.answer)
+
     return (
       <form className="white" onSubmit={this.onSubmit}>
         <h3>Your Answer</h3>
@@ -61,12 +65,14 @@ export default class Answer extends Component {
             Answer:
             <input
               type="answer"
-              value={this.state.value}
+              value={this.state.answer}
               name="answer"
               onChange={this.onChange}
             />
           </label>
         </div>
+        {this.state.answer && check}
+        
         <div>
           <input type="submit" value="Submit" />
         </div>
@@ -74,3 +80,15 @@ export default class Answer extends Component {
     );
   }
 }
+
+const mapStateToProps = reduxState => {
+  return {
+    answer: reduxState.answer,
+    countries: reduxState.countries
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { setAnswer, updateScore, randomLetter }
+)(Answer);

@@ -1,21 +1,30 @@
 import React, { Component } from "react";
-import './Answer.css'
+import "./Answer.css";
 import { setAnswer } from "../actions/answer";
 import { updateScore } from "../actions/score";
 import { randomLetter } from "../actions/letter";
+import { setTargetScore } from "../actions/targetScore";
 import { connect } from "react-redux";
-
 
 class Answer extends Component {
   state = {
     answer: "",
-    answered: false
+    answered: false,
+    toggleVisibility: false,
+    targetScore: 0
   };
 
   onChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value.charAt(0).toUpperCase() + value.slice(1)
+    });
+  };
+
+  onChange2 = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
     });
   };
 
@@ -29,13 +38,26 @@ class Answer extends Component {
   handleChange = () => {
     this.props.randomLetter();
   };
-   timeUp = () => {
+  timeUp = () => {
     alert("Your Time Is Up!");
-  }
+  };
+
+  toggleVisibility = () => {
+    if (this.state.visibilityForm === true) {
+      return this.setState({
+        visibilityForm: false
+      });
+    } else {
+      return this.setState({
+        visibilityForm: true
+      });
+    }
+  };
 
   onSubmit = event => {
+    console.log("submit", this.state.targetScore);
     event.preventDefault();
-    this.props.setAnswer(this.state.answer);
+    this.props.setAnswer(this.state);
     this.answerCheck();
     this.handleChange();
     this.setState({
@@ -45,10 +67,16 @@ class Answer extends Component {
     setTimeout(this.timeUp, 60000);
   };
 
+  onSubmit2 = event => {
+    event.preventDefault();
+    this.props.setTargetScore(this.state.targetScore)
+  };
+
   render() {
     if (!this.props.countries) {
       return "Loading";
     }
+
     if (this.state.answered) {
     }
 
@@ -59,38 +87,75 @@ class Answer extends Component {
     const answerCheck = this.state.answer && check;
 
     return (
-      <div className="container">
-      <form className="col s12 m4 l2"  onSubmit={this.onSubmit}>
-        <h3 className="teal-text text-darken-2">Your Answer</h3>
-        <div>
-          <label name="answer">
-            Answer:
-            <input
-            id="answer" type="text" 
-              value={this.state.answer}
-              name="answer"
-              onChange={this.onChange}
-            />
-          </label>
-        </div>
-        {this.state.answer && check}
-
-        <div>
+      <div>
+        {!this.state.visibilityForm && (
           <button
+            onClick={this.toggleVisibility}
             className="btn waves-effect waves-light"
-            type="submit"
-            name="action"
           >
-            Submit
-            <i className="material-icons right">send</i>
+            Add Target Score
           </button>
+        )}
+        {this.state.visibilityForm && (
+          <div className="form">
+            <button
+              onClick={this.toggleVisibility}
+              className="btn waves-effect waves-light"
+            >
+              Hide form
+            </button>
+            <form onSubmit={this.onSubmit2}>
+              <h4>Enter a Target Score</h4>
+              <input
+                type="number"
+                name="targetScore"
+                onChange={this.onChange2}
+                value={this.state.targetScore}
+                placeholder="Target Score"
+                className="input"
+                required
+              />
+              <div>
+                <button className="btn waves-effect waves-light" type="number">
+                  Add
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        <div className="form">
+          <form className="col s12 m4 l2" onSubmit={this.onSubmit}>
+            <h3 className="teal-text text-darken-2">Your Answer</h3>
+            <div>
+              <label name="answer">
+                Answer:
+                <input
+                  id="answer"
+                  type="text"
+                  value={this.state.answer}
+                  name="answer"
+                  onChange={this.onChange}
+                />
+              </label>
+            </div>
+            {this.state.answer && check}
+
+            <div>
+              <button
+                className="btn waves-effect waves-light"
+                type="submit"
+                name="action"
+              >
+                Submit
+                <i className="material-icons right">send</i>
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
       </div>
     );
   }
 }
-
 const mapStateToProps = reduxState => {
   return {
     answer: reduxState.answer,
@@ -100,5 +165,5 @@ const mapStateToProps = reduxState => {
 
 export default connect(
   mapStateToProps,
-  { setAnswer, updateScore, randomLetter }
+  { setAnswer, updateScore, randomLetter, setTargetScore }
 )(Answer);

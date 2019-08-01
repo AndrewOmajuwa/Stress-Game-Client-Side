@@ -85,11 +85,11 @@ class Timer extends Component {
       <div>
         <div className="Countdown-label">Hours : Minutes : Seconds</div>
         <div className="Countdown-display">
-          <button className="btn-floating btn-large waves-effect waves-light red" onClick={() => this.adjustTimer("incHours")}>&#8679;</button>
+          <button className="btn-floating btn-large waves-effect waves-light blue" onClick={() => this.adjustTimer("incHours")}>&#8679;</button>
           <button className="btn-floating btn-large waves-effect waves-light blue" onClick={() => this.adjustTimer("incMinutes")}>
             &#8679;
           </button>
-          <button className="btn-floating btn-large waves-effect waves-light green" onClick={() => this.adjustTimer("incSeconds")}>
+          <button className="btn-floating btn-large waves-effect waves-light blue" onClick={() => this.adjustTimer("incSeconds")}>
             &#8679;
           </button>
           <div className="Countdown-time">
@@ -98,11 +98,11 @@ class Timer extends Component {
               {hours} : {minutes} : {seconds}
             </h1>
           </div>
-          <button className="btn-floating btn-large waves-effect waves-light red" onClick={() => this.adjustTimer("decHours")}>&#8681;</button>
+          <button className="btn-floating btn-large waves-effect waves-light blue" onClick={() => this.adjustTimer("decHours")}>&#8681;</button>
           <button className="btn-floating btn-large waves-effect waves-light blue" onClick={() => this.adjustTimer("decMinutes")}>
             &#8681;
           </button>
-          <button className="btn-floating btn-large waves-effect waves-light green" onClick={() => this.adjustTimer("decSeconds")}>
+          <button className="btn-floating btn-large waves-effect waves-light blue" onClick={() => this.adjustTimer("decSeconds")}>
             &#8681;
           </button>
           <br /> <br/>

@@ -10,7 +10,7 @@ class ScoreBoard extends Component {
         <div >
           <ul >
             <li className="right">
-              <strong>Target Score: 15 </strong>
+              <strong>Target Score: {this.props.targetScore} </strong>
             </li>
             <li>
               <strong>Actual Score: {this.props.score} </strong>
@@ -26,7 +26,8 @@ class ScoreBoard extends Component {
 
 const mapStateToProps = reduxState => {
     return {
-      score: reduxState.score
+      score: reduxState.score,
+      targetScore: reduxState.targetScore
     };
   };
   

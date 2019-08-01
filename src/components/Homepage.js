@@ -6,7 +6,7 @@ export default class Homepage extends Component {
   render() {
     return (
       <div>
-        <div className="homepage">
+        <div className="homepage" >
           <h1>From Letter To Country</h1>
           <h5>Instructions</h5>
             Below you will find links to two games. <br/>

@@ -10,8 +10,8 @@ class Letter extends Component {
     
   render() {
     return (
-      <div class="teal-text text-darken-2">
-        <h1 class="teal-text text-darken-2">From-Letter-To-Word</h1>
+      <div className="teal-text text-darken-2">
+        <h1 className="teal-text text-darken-2">From-Letter-To-Word</h1>
         Type in a country starting with the letter
         <h2>{this.props.letter}</h2>
       </div>

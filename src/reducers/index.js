@@ -4,6 +4,7 @@ import countries from './listcountries'
 import score from './score'
 import letter from './letter'
 import timer from './timer'
+import user from './user'
 
 export default combineReducers({
  answer,
@@ -11,4 +12,5 @@ export default combineReducers({
  score,
  letter,
  timer,
+ user
 })

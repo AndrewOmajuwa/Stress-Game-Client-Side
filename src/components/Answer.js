@@ -29,6 +29,9 @@ class Answer extends Component {
   handleChange = () => {
     this.props.randomLetter();
   };
+   timeUp = () => {
+    alert("Your Time Is Up!");
+  }
 
   onSubmit = event => {
     event.preventDefault();
@@ -39,6 +42,7 @@ class Answer extends Component {
       answer: "",
       answered: true
     });
+    setTimeout(this.timeUp, 60000);
   };
 
   render() {
@@ -55,11 +59,11 @@ class Answer extends Component {
     const answerCheck = this.state.answer && check;
 
     return (
-      <div class="container">
-      <form class="col s12 m4 l2"  onSubmit={this.onSubmit}>
-        <h3 class="teal-text text-darken-2">Your Answer</h3>
+      <div className="container">
+      <form className="col s12 m4 l2"  onSubmit={this.onSubmit}>
+        <h3 className="teal-text text-darken-2">Your Answer</h3>
         <div>
-          <label for="Answer" name="answer">
+          <label name="answer">
             Answer:
             <input
             id="answer" type="text" 
@@ -73,12 +77,12 @@ class Answer extends Component {
 
         <div>
           <button
-            class="btn waves-effect waves-light"
+            className="btn waves-effect waves-light"
             type="submit"
             name="action"
           >
             Submit
-            <i class="material-icons right">send</i>
+            <i className="material-icons right">send</i>
           </button>
         </div>
       </form>

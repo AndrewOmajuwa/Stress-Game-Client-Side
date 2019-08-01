@@ -1,0 +1,12 @@
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background: teal(166, 235, 252);
+    width: 90%;
+    height: 500px;
+    margin: auto;
+    border-radius: 5px;
+    padding: 10px 10px;
+  }
